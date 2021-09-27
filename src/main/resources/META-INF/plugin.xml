@@ -1,0 +1,153 @@
+<idea-plugin>
+    <id>BlockSetPlugin</id>
+    <name>BML syntax</name>
+    <vendor email="support@blockset.ru" url="http://blockset.ru/">Diploma Company</vendor>
+
+    <description>Plugin for BML language with syntax highlighting support</description>
+
+    <depends>com.intellij.modules.lang</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+        <fileType name="BML" implementationClass="com.blockset.edit.BmlFileType"
+                  fieldName="INSTANCE" language="BML" extensions="bml" />
+
+        <lang.parserDefinition language="BML"
+                               implementationClass="com.blockset.edit.lexer.BmlParserDefinition" />
+
+        <lang.syntaxHighlighterFactory language="BML"
+                                       implementationClass="com.blockset.edit.highlighter.BmlSyntaxHighLighterFactory" />
+
+        <syntaxHighlighter implementationClass="com.blockset.edit.highlighter.BmlFileHighlighter" />
+
+        <colorSettingsPage implementation="com.blockset.edit.highlighter.color.BmlColorSettingsPage" />
+
+        <completion.contributor language="BML"
+                                implementationClass="com.blockset.edit.contributor.BmlCompletionContributor" />
+        <completion.contributor language="BML"
+                                implementationClass="com.intellij.codeInsight.completion.XmlNoVariantsDelegator"/>
+
+        <applicationService serviceInterface="com.blockset.edit.fix.BmlQuickFixFactory"
+                            serviceImplementation="com.blockset.edit.fix.BmlQuickFixFactoryImpl"/>
+
+        <lang.elementManipulator forClass="com.intellij.psi.xml.XmlAttributeValue"
+                                 implementationClass="com.blockset.edit.manipulator.BmlAttributeValueManipulator" />
+        <lang.elementManipulator forClass="com.intellij.psi.xml.XmlAttribute"
+                                 implementationClass="com.blockset.edit.manipulator.BmlAttributeManipulator"/>
+        <lang.elementManipulator forClass="com.intellij.psi.xml.XmlToken"
+                                 implementationClass="com.blockset.edit.manipulator.BmlTokenManipulator"/>
+        <lang.elementManipulator forClass="com.intellij.psi.xml.XmlTag"
+                                 implementationClass="com.blockset.edit.manipulator.BmlTagManipulator"/>
+        <lang.elementManipulator forClass="com.intellij.psi.xml.XmlText"
+                                 implementationClass="com.blockset.edit.manipulator.BmlTextManipulator"/>
+        <lang.elementManipulator forClass="com.intellij.psi.xml.XmlProcessingInstruction"
+                                 implementationClass="com.blockset.edit.manipulator.BmlProcessingInstructionManipulator"/>
+
+        <highlightVisitor implementation="com.blockset.edit.highlighter.BmlHighlightVisitor"/>
+
+        <xml.tagNameProvider implementation="com.blockset.edit.contributor.DefaultBmlTagNameProvider"/>
+
+        <lang.formatter language="BML" implementationClass="com.blockset.edit.format.BmlFormattingModelBuilder" />
+        <lang.whiteSpaceFormattingStrategy language="BML"
+                                           implementationClass="com.blockset.edit.format.BmlWhiteSpaceFormattingStrategy"/>
+
+        <lang.ast.factory language="BML" implementationClass="com.blockset.edit.lang.BmlASTFactory"/>
+
+        <lang.psiStructureViewFactory language="BML"
+                                      implementationClass="com.intellij.lang.xml.XmlStructureViewBuilderFactory"/>
+
+        <braceMatcher filetype="BML" implementationClass="com.intellij.xml.impl.XmlBraceMatcher"/>
+
+        <lang.findUsagesProvider language="BML" implementationClass="com.intellij.lang.xml.XmlFindUsagesProvider"/>
+
+        <targetElementEvaluator language="BML" implementationClass="com.intellij.codeInsight.XmlTargetElementEvaluator"/>
+
+        <lang.lineWrapStrategy language="BML" implementationClass="com.intellij.psi.formatter.MarkupLineWrapPositionStrategy"/>
+
+        <typedHandler implementation="com.blockset.edit.handler.BmlSlashTypedHandler" id="bmlSlash"/>
+        <typedHandler implementation="com.blockset.edit.handler.BmlEqTypedHandler" id="bmlEq"/>
+        <typedHandler implementation="com.blockset.edit.handler.BmlAutoPopupHandler" id="bmlAuto"/>
+        <typedHandler implementation="com.blockset.edit.handler.BmlGtTypedHandler" id="bmlGt"/>
+
+        <targetElementEvaluator language="BML" implementationClass="com.intellij.codeInsight.XmlTargetElementEvaluator"/>
+
+        <lang.findUsagesProvider language="BML" implementationClass="com.intellij.lang.xml.XmlFindUsagesProvider"/>
+
+        <lang.commenter language="BML" implementationClass="com.intellij.lang.xml.XmlCommenter"/>
+
+        <quoteHandler fileType="BML" className="com.intellij.codeInsight.editorActions.XmlQuoteHandler"/>
+        <lang.quoteHandler language="BML" implementationClass="com.intellij.codeInsight.editorActions.XmlQuoteHandler"/>
+
+        <selectionDequotingFilter implementation="com.intellij.codeInsight.editorActions.XmlDequotingFilter"/>
+
+        <extendWordSelectionHandler implementation="com.intellij.codeInsight.editorActions.XmlTagSelectioner"/>
+        <extendWordSelectionHandler implementation="com.intellij.codeInsight.editorActions.XmlElementSelectioner"/>
+        <extendWordSelectionHandler id="bmlTokenSelectioner" implementation="com.intellij.codeInsight.editorActions.XmlTokenSelectioner"/>
+
+        <enterHandlerDelegate implementation="com.blockset.edit.handler.EnterBetweenBmlTagsHandler" id="bmlEnter"/>
+
+        <declarationRangeHandler key="com.intellij.psi.xml.XmlTag"
+                                 implementationClass="com.intellij.codeInsight.hint.TagDeclarationRangeHandler"/>
+
+        <errorQuickFixProvider implementation="com.intellij.codeInsight.daemon.impl.analysis.XmlErrorQuickFixProvider"/>
+
+        <lookup.charFilter implementation="com.intellij.codeInsight.completion.XmlCharFilter" id="bml"/>
+
+        <readWriteAccessDetector implementation="com.intellij.codeInsight.highlighting.XmlReadWriteAccessDetector"/>
+
+        <annotator language="BML"
+                   implementationClass="com.intellij.codeInspection.htmlInspections.XmlWrongClosingTagNameInspection"/>
+
+        <moveLeftRightHandler language="BML"
+                              implementationClass="com.intellij.codeInsight.editorActions.moveLeftRight.XmlMoveLeftRightHandler"/>
+
+        <lang.smartEnterProcessor language="BML"
+                                  implementationClass="com.intellij.codeInsight.completion.XmlSmartEnterProcessor"/>
+
+        <localInspection language="BML" shortName="CheckBmlTagEmptyBody" enabledByDefault="true" level="WARNING"
+                         bundle="messages.BmlBundle" key="bml.inspections.check.tag.empty.body"
+                         groupBundle="messages.BmlBundle" groupKey="bml.inspections.group.name"
+                         implementationClass="com.blockset.edit.inspection.CheckBmlTagEmptyBodyInspection"/>
+
+        <localInspection language="BML" shortName="BmlWrongRootElement" enabledByDefault="true" level="ERROR"
+                         bundle="messages.BmlBundle" key="bml.inspection.wrong.root.element"
+                         groupBundle="messages.BmlBundle" groupKey="bml.inspections.group.name"
+                         implementationClass="com.blockset.edit.inspection.BmlWrongRootElementInspection"/>
+
+        <localInspection language="BML" shortName="BmlExtraClosingTag" enabledByDefault="true" level="WARNING"
+                         bundle="messages.BmlBundle" key="bml.inspection.extra.closing.tag"
+                         groupBundle="messages.BmlBundle" groupKey="bml.inspections.group.name"
+                         implementationClass="com.blockset.edit.inspection.BmlExtraClosingTagInspection"/>
+
+        <localInspection language="BML" shortName="BmlUnknownTag" enabledByDefault="true" level="ERROR"
+                         bundle="messages.BmlBundle" key="bml.inspections.unknown.tag"
+                         groupBundle="messages.BmlBundle" groupKey="bml.inspections.group.name"
+                         implementationClass="com.blockset.edit.inspection.BmlUnknownTagInspection"/>
+
+        <localInspection language="BML" shortName="BmlUnknownAttribute" enabledByDefault="true" level="WARNING"
+                         bundle="messages.BmlBundle" key="bml.inspections.unknown.attribute"
+                         groupBundle="messages.BmlBundle" groupKey="bml.inspections.group.name"
+                         implementationClass="com.blockset.edit.inspection.BmlUnknownAttributeInspection"/>
+
+        <globalInspection language="BML" shortName="BmlHighlighting" enabledByDefault="true" level="ERROR"
+                          bundle="messages.BmlBundle" key="bml.inspections.global"
+                          groupBundle="messages.BmlBundle" groupKey="bml.inspections.group.name"
+                          implementationClass="com.blockset.edit.inspection.BmlHighlightVisitorBasedInspection" />
+
+    </extensions>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <toolWindow id="Model" secondary="false" anchor="left" factoryClass="com.blockset.ui.ModelTool"/>
+        <toolWindow id="Location" secondary="true" anchor="left" factoryClass="com.blockset.ui.LocationTool"/>
+        <toolWindow id="SetRefactor" secondary="true" anchor="right" factoryClass="com.blockset.ui.SetRefactor"/>
+        <toolWindow id="SetsTool" secondary="false" anchor="right" factoryClass="com.blockset.ui.SetsTool"/>
+    </extensions>
+
+    <extensions defaultExtensionNs="org.jetbrains">
+        <urlOpener implementation="com.intellij.ide.browsers.impl.DefaultUrlOpener" order="last"/>
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+    </actions>
+</idea-plugin>
